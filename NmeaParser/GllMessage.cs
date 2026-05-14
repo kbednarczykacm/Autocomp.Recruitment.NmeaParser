@@ -58,15 +58,13 @@ public class GllMessage : BaseMessage
         // Mode
         string rawMode = Fields[6].Substring(0, 1);
         if (!Enum.TryParse(rawMode, out ModeIndicator mode))
-            throw new NotSupportedException($"Invalid mode indicator: {Fields[6]}");
+            throw new NotSupportedException($"Invalid mode indicator: {rawMode}");
 
         this.Latitude = new Coordinate(latitudeDegrees, latitudeMinutes, latitudeDirection);
         this.Longitude = new Coordinate(longitudeDegrees, longitudeMinutes, longitudeDirection);
         this.Time = new TimeOnly(hours, minutes, seconds, milliseconds);
         this.Status = status;
         this.Mode = mode;
-
-        Console.WriteLine("GllMessage constructor.");
     }
 
     public record Coordinate(byte Degrees, decimal Minutes, bool Direction);
