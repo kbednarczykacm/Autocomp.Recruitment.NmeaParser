@@ -13,35 +13,49 @@ public class MwvMessage : BaseMessage
 
     public MwvMessage(string body) : base(body)
     {
+        // Check number of arguments
+        if (Fields.Length > 5)
+            throw new ArgumentOutOfRangeException($"Too many arguments: {Fields.Length}");
+        if (Fields.Length < 5)
+            throw new ArgumentOutOfRangeException($"Too few arguments: {Fields.Length}");
+
         // Wind Angle
-        decimal windAngle = Convert.ToDecimal(Fields[0], CultureInfo.InvariantCulture);
+        if (!Decimal.TryParse(Fields[0], CultureInfo.InvariantCulture, out decimal windAngle))
+            throw new ArgumentException($"Invalid wind angle value: {Fields[0]}");
+        if (windAngle >= 360)
+            throw new ArgumentOutOfRangeException($"Too high wind angle value: {windAngle}");
+        if (windAngle < 0)
+            throw new ArgumentOutOfRangeException($"Too low wind angle value: {windAngle}");
 
         // Reference
         bool reference = false;
-
         if (Fields[1].ToUpper() == "R")
             reference = true;
         else if (Fields[1].ToUpper() == "T")
             reference = false;
         else
-            throw new NotSupportedException($"Invalid reference: {Fields[1]}");
+            throw new ArgumentException($"Invalid reference: {Fields[1]}");
 
         // Wind Speed
-        decimal windSpeed = Convert.ToDecimal(Fields[2], CultureInfo.InvariantCulture);
+        if (!Decimal.TryParse(Fields[2], CultureInfo.InvariantCulture, out decimal windSpeed))
+            throw new ArgumentException($"Invalid wind speed value: {Fields[2]}");
+        if (windSpeed < 0)
+            throw new ArgumentOutOfRangeException($"Too low wind speed value: {windSpeed}");
 
         // Unit
         string rawUnit = Fields[3].Substring(0, 1);
         if (!Enum.TryParse(rawUnit, out WindSpeedUnit unit))
-            throw new NotSupportedException($"Invalid unit: {rawUnit}");
+            throw new ArgumentException($"Invalid unit: {rawUnit}");
 
         // Status
+        string rawStatus = Fields[4].Substring(0, 1);
         bool status;
-        if (Fields[4].ToUpper() == "A")
+        if (rawStatus.ToUpper() == "A")
             status = true;
-        else if (Fields[4].ToUpper() == "V")
+        else if (rawStatus.ToUpper() == "V")
             status = false;
         else
-            throw new ArgumentException($"Invalid status descriptor: {Fields[4]}");
+            throw new ArgumentException($"Invalid status descriptor: {rawStatus}");
 
         // Assignement
         this.WindAngle = windAngle;
