@@ -9,6 +9,7 @@ public class MwvMessage : BaseMessage
     public bool Reference { get; }
     public decimal WindSpeed { get; }
     public WindSpeedUnit Unit { get; }
+    public bool Status { get; }
 
     public MwvMessage(string body) : base(body)
     {
@@ -33,10 +34,21 @@ public class MwvMessage : BaseMessage
         if (!Enum.TryParse(rawUnit, out WindSpeedUnit unit))
             throw new NotSupportedException($"Invalid unit: {rawUnit}");
 
+        // Status
+        bool status;
+        if (Fields[4].ToUpper() == "A")
+            status = true;
+        else if (Fields[4].ToUpper() == "V")
+            status = false;
+        else
+            throw new ArgumentException($"Invalid status descriptor: {Fields[4]}");
+
+        // Assignement
         this.WindAngle = windAngle;
         this.Reference = reference;
         this.WindSpeed = windSpeed;
         this.Unit = unit;
+        this.Status = status;
     }
 
     public enum WindSpeedUnit { K, M, N, S }
