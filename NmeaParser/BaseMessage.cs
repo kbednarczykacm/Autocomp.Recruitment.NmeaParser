@@ -14,6 +14,9 @@ public abstract class BaseMessage : NmeaMessage
 
     public BaseMessage(string body) : base(body)
     {
+        if (Header.Length != 6)
+            throw new ArgumentException("Invalid NMEA header.");
+
         TalkerId = Header.Substring(1, 2);
         MessageType = Header.Substring(3);
         Checksum = Convert.FromHexString(Fields[Fields.Length - 1].Split(Format.Suffix)[1].Substring(0, 2))[0];
