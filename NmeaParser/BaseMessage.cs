@@ -20,6 +20,29 @@ public abstract class BaseMessage : NmeaMessage
         Message = body.Split("$")[1].Split("*")[0];
     }
 
+    public static BaseMessage CreateMessage(string rawMessage)
+    {
+        if (string.IsNullOrWhiteSpace(rawMessage) || !rawMessage.StartsWith("$"))
+            throw new ArgumentException("Invalid NMEA message format");
+
+        string[] fields = rawMessage.Split(",");
+        string header = fields[0];
+
+        if (header.Length < 6)
+            throw new ArgumentException("Invalid NMEA header.");
+
+        string messageType = header.Substring(header.Length - 3);
+
+        BaseMessage message = messageType switch
+        {
+            "GLL" => new GllMessage(rawMessage),
+            "MWV" => new MwvMessage(rawMessage),
+            _ => throw new NotSupportedException($"Unsupported message type: {messageType}"),
+        };
+
+        return message;
+    }
+
     byte CRC(string msg)
     {
         byte crc = 0;
