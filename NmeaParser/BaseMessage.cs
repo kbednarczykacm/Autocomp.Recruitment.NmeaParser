@@ -33,7 +33,7 @@ public abstract class BaseMessage : NmeaMessage
         string[] fields = rawMessage.Split(format.Separator);
         string header = fields[0];
 
-        if (header.Length < 6)
+        if (header.Length != 6)
             throw new ArgumentException("Invalid NMEA header.");
 
         string messageType = header.Substring(header.Length - 3);
