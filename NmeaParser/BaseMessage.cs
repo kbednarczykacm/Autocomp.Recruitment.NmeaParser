@@ -19,7 +19,21 @@ public abstract class BaseMessage : NmeaMessage
 
         TalkerId = Header.Substring(1, 2);
         MessageType = Header.Substring(3);
-        Checksum = Convert.FromHexString(Fields[Fields.Length - 1].Split(Format.Suffix)[1].Substring(0, 2))[0];
+
+        if (Fields[Fields.Length - 1] == null)
+            throw new ArgumentException("Invalid NMEA message.");
+        string rawFooter = Fields[Fields.Length - 1];
+
+        string[] footer = rawFooter.Split(Format.Suffix);
+        if (footer.Length != 2)
+            throw new ArgumentException($"Invalid NMEA message (no suffix \"{Format.Suffix} found\")");
+        if (footer[1].Length < 2)
+            throw new ArgumentException($"Invalid checksum");
+
+        if (!Byte.TryParse(footer[1], System.Globalization.NumberStyles.HexNumber, null, out byte checksum))
+            throw new ArgumentException($"Invalid checksum");
+
+        Checksum = checksum;
         Message = body.Split(Format.Prefix)[1].Split(Format.Suffix)[0];
     }
 
