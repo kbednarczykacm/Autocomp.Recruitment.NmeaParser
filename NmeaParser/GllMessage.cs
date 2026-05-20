@@ -44,7 +44,7 @@ public class GllMessage : BaseMessage
 
         // Longitude
         if (!Decimal.TryParse(Fields[2], CultureInfo.InvariantCulture, out decimal rawLongitude))
-            throw new ArgumentException($"Invalid latitude value: {Fields[2]}");
+            throw new ArgumentException($"Invalid longitude value: {Fields[2]}");
         // Degrees
         decimal rawLongitudeDegrees = Math.Floor(rawLongitude / 100);
         if (rawLongitudeDegrees > 180)
