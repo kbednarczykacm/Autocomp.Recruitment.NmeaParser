@@ -20,9 +20,9 @@ public abstract class BaseMessage : NmeaMessage
         TalkerId = Header.Substring(1, 2);
         MessageType = Header.Substring(3);
 
-        if (Fields[Fields.Length - 1] == null)
+        if (Fields.Length < 1)
             throw new ArgumentException("Invalid NMEA message.");
-        string rawFooter = Fields[Fields.Length - 1];
+        string rawFooter = Fields[Fields.Length - 1].Trim('\r', '\n');
 
         string[] footer = rawFooter.Split(Format.Suffix);
         if (footer.Length != 2)
