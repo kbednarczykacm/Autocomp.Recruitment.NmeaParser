@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NmeaParser", "NmeaParser\Nm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NmeaParser.Tests", "NmeaParser.Tests\NmeaParser.Tests.csproj", "{81007172-8E43-46CF-909D-F7E8106EFA04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NmeaParserConsoleApp", "NmeaParserConsoleApp\NmeaParserConsoleApp.csproj", "{BDFE6957-226D-4AEB-881E-6D6493D0C87D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{81007172-8E43-46CF-909D-F7E8106EFA04}.Release|x64.Build.0 = Release|Any CPU
 		{81007172-8E43-46CF-909D-F7E8106EFA04}.Release|x86.ActiveCfg = Release|Any CPU
 		{81007172-8E43-46CF-909D-F7E8106EFA04}.Release|x86.Build.0 = Release|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Debug|x64.Build.0 = Debug|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Debug|x86.Build.0 = Debug|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Release|x64.ActiveCfg = Release|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Release|x64.Build.0 = Release|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Release|x86.ActiveCfg = Release|Any CPU
+		{BDFE6957-226D-4AEB-881E-6D6493D0C87D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
