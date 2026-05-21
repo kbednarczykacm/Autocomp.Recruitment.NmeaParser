@@ -3,12 +3,36 @@ using Autocomp.Nmea.Common;
 
 namespace NmeaParser;
 
+/// <summary>
+/// Represents a GLL NMEA message, which contains information about the geographic position of a vessel, including latitude, longitude, time of position fix, status of the data, and mode indicator. 
+/// This class inherits from BaseMessage and provides specific properties and parsing logic for the GLL message type.
+/// </summary>
 public class GllMessage : BaseMessage
 {
+    /// <summary>
+    /// Defines the latitude coordinate of the vessel, which is represented as a Coordinate record containing degrees, minutes, and direction (North or South).
+    /// </summary>
     public Coordinate Latitude { get; }
+
+    /// <summary>
+    /// Defines the longitude coordinate of the vessel, which is represented as a Coordinate record containing degrees, minutes, and direction (West or East).
+    /// </summary>
     public Coordinate Longitude { get; }
+
+    /// <summary>
+    /// Defines the time of position fix, which is represented as a TimeOnly struct containing hours, minutes, seconds, and milliseconds.
+    /// </summary>
     public TimeOnly Time { get; }
+
+    /// <summary>
+    /// Indicates the status of the data, where 'A' means Data Valid and 'V' means Data Invalid. 
+    /// This property is represented as a boolean value, where true indicates valid data and false indicates invalid data.
+    /// </summary>
     public bool Status { get; }
+
+    /// <summary>
+    /// Defines the mode indicator, which provides information about the mode of operation of the GPS receiver.
+    /// </summary>
     public ModeIndicator Mode { get; }
 
     public GllMessage(string body) : base(body)
@@ -110,7 +134,13 @@ public class GllMessage : BaseMessage
         this.Mode = mode;
     }
 
+    /// <summary>
+    /// Represents a geographic coordinate, which consists of degrees, minutes, and direction (North/South for latitude and West/East for longitude).
+    /// </summary>
     public record Coordinate(byte Degrees, decimal Minutes, bool Direction);
 
+    /// <summary>
+    /// Defines the mode indicator for the GLL message, which provides information about the mode of operation of the GPS receiver.
+    /// </summary>
     public enum ModeIndicator { A, D, E, M, S, N }
 };
