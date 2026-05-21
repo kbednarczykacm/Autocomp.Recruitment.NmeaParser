@@ -3,12 +3,36 @@ using Autocomp.Nmea.Common;
 
 namespace NmeaParser;
 
+/// <summary>
+/// Represents an MWV NMEA message, which contains information about the wind angle, reference, wind speed, unit of wind speed, and status of the data.
+/// </summary>
 public class MwvMessage : BaseMessage
 {
+    /// <summary>
+    /// Defines the wind angle, which is represented as a decimal value indicating the angle of the wind relative to the vessel.
+    /// </summary>
     public decimal WindAngle { get; }
+
+    /// <summary>
+    /// Indicates the reference for the wind angle, where 'R' is Relative and 'T' is Theoretical. 
+    /// This property is represented as a boolean value, where true indicates Relative reference and false indicates Theoretical reference.
+    /// </summary>
     public bool Reference { get; }
+
+    /// <summary>
+    /// Defines the wind speed, which is represented as a decimal value indicating the speed of the wind. The unit of wind speed is determined by the Unit property.
+    /// </summary>
     public decimal WindSpeed { get; }
+
+    /// <summary>
+    /// Defines the unit of wind speed, which is represented as an enumeration (K for kilometers per hour, M for miles per hour, N for knots, and S for meters per second).
+    /// </summary>
     public WindSpeedUnit Unit { get; }
+
+    /// <summary>
+    /// Indicates the status of the data, where 'A' means Data Valid and 'V' means Data Invalid. 
+    /// This property is represented as a boolean value, where true indicates valid data and false indicates invalid data.
+    /// </summary>
     public bool Status { get; }
 
     public MwvMessage(string body) : base(body)
@@ -65,5 +89,8 @@ public class MwvMessage : BaseMessage
         this.Status = status;
     }
 
+    /// <summary>
+    /// Defines the unit of wind speed, which is represented as an enumeration (K for kilometers per hour, M for miles per hour, N for knots, and S for meters per second).
+    /// </summary>
     public enum WindSpeedUnit { K, M, N, S }
 };
